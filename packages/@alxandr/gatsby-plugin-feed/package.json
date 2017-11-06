@@ -1,0 +1,12 @@
+{
+  "name": "@alxandr/gatsby-plugin-feed",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "gatsby": "^1.9.101",
+    "graphql": "^0.11.7",
+    "lodash": "^4.17.4",
+    "stream": "0.0.2",
+    "xmlbuilder": "^9.0.4"
+  }
+}

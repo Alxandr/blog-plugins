@@ -1,0 +1,13 @@
+{
+  "name": "gatsby-transformer-blog-post",
+  "dependencies": {
+    "clean-css": "^4.1.9",
+    "gatsby": "^1.9.101",
+    "github": "^12.0.1",
+    "graphql": "^0.11.7",
+    "js-yaml": "^3.10.0",
+    "luxon": "0.0.16",
+    "react-jss": "^7.2.0",
+    "slug": "^0.9.1"
+  }
+}
