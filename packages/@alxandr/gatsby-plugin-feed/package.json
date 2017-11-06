@@ -8,5 +8,9 @@
     "lodash": "^4.17.4",
     "stream": "0.0.2",
     "xmlbuilder": "^9.0.4"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.1.0"
 }
