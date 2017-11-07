@@ -7,7 +7,10 @@ const onCreateNode = async (
   const { createNode, createParentChildLink } = boundActionCreators;
 
   // We only care about markdown content.
-  if (node.internal.mediaType !== 'text/x-markdown') {
+  if (
+    node.internal.mediaType !== 'text/markdown' &&
+    node.internal.mediaType !== 'text/x-markdown'
+  ) {
     return;
   }
 
