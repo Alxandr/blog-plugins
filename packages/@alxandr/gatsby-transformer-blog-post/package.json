@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-transformer-blog-post",
+  "name": "@alxandr/gatsby-transformer-blog-post",
   "dependencies": {
     "clean-css": "^4.1.9",
     "cross-fetch": "^1.1.0",
