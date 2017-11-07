@@ -7,7 +7,7 @@ slug.defaults.modes.pretty.lower = true;
 
 exports.onCreateNode = async (
   { node, boundActionCreators, getNode, cache },
-  { githubToken, githubRepo, githubOwner },
+  { commentsApiGateway },
 ) => {
   const {
     createNode,
@@ -40,9 +40,7 @@ exports.onCreateNode = async (
           createParentChildLink,
           createNodeField,
           getNode,
-          githubOwner,
-          githubRepo,
-          githubToken,
+          commentsApiGateway,
         }),
       );
 

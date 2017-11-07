@@ -6,7 +6,6 @@ const {
   GraphQLNonNull,
   GraphQLObjectType,
 } = require('graphql');
-const GitHubApi = require('github');
 const { DateTime } = require('luxon');
 const { createTag } = require('./create-tag');
 const { createSeries } = require('./create-series');
@@ -20,9 +19,7 @@ const createPost = async ({
   createNode,
   createParentChildLink,
   getNode,
-  githubOwner,
-  githubRepo,
-  githubToken,
+  commentsApiGateway,
 }) => {
   const { frontmatter } = aux;
   const postSlug = frontmatter.slug || slug(frontmatter.title);
@@ -69,21 +66,8 @@ const createPost = async ({
     // eslint-disable-next-line no-console
     console.error(`Post ${postTitle} does not have a configured issue.`);
   } else {
-    const github = new GitHubApi({
-      headers: {
-        'user-agent': 'gatsby-transformer-blog-post',
-      },
-    });
-
-    github.authenticate({
-      type: 'token',
-      token: githubToken,
-    });
-
     await fetchComments({
-      github,
-      owner: githubOwner,
-      repo: githubRepo,
+      commentsApiGateway,
       issue: frontmatter.issue,
       createNode,
       post: postId,

@@ -1,62 +1,37 @@
 const crypto = require('crypto');
 const yaml = require('js-yaml');
+const fetch = require('cross-fetch');
 const { createInternal } = require('./create-internal');
 
 const fetchComments = async ({
-  github,
-  repo,
-  owner,
+  commentsApiGateway,
   issue,
   createNode,
   post,
 }) => {
-  let response = await github.issues.getComments({
-    owner,
-    repo,
-    number: issue,
-    per_page: 100,
-  });
+  const response = await fetch(`${commentsApiGateway}/${issue}`);
+  const comments = await response.json();
+  for (const comment of comments) {
+    const { body, ...meta } = comment;
+    const frontmatter = yaml.safeDump(meta);
+    const content = `---\n${frontmatter}\n---\n\n${body}`;
+    const node = {
+      id: `CommentGateway < ${owner}/${repo}/${comment.id}`,
+      parent: '___SOURCE___',
+      children: [],
+      internal: {
+        mediaType: 'text/x-markdown',
+        type: 'CommentMarkdown',
+        content,
+        contentDigest: crypto
+          .createHash('md5')
+          .update(content)
+          .digest('hex'),
+      },
+    };
 
-  do {
-    for (const comment of response.data) {
-      const frontmatter = yaml
-        .safeDump({
-          key: `${owner}/${repo}/${comment.id}`,
-          type: 'comment',
-          post,
-          created: comment.created_at,
-          updated: comment.updated_at,
-          link: comment.html_url,
-          user: {
-            name: comment.user.login,
-            avatar: comment.user.avatar_url,
-            url: comment.user.html_url,
-          },
-        })
-        .trim();
-      const content = `---\n${frontmatter}\n---\n\n${comment.body}`;
-
-      const node = {
-        id: `GitHubComment < ${owner}/${repo}/${comment.id}`,
-        parent: '___SOURCE___',
-        children: [],
-        internal: {
-          mediaType: 'text/x-markdown',
-          type: 'CommentMarkdown',
-          content,
-          contentDigest: crypto.createHash('md5').update(content).digest('hex'),
-        },
-      };
-
-      createNode(node);
-    }
-
-    if (github.hasNextPage(response)) {
-      response = await github.getNextPage(response);
-    } else {
-      response = null;
-    }
-  } while (response !== null);
+    createNode(node);
+  }
 };
 
 exports.fetchComments = fetchComments;
