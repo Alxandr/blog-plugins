@@ -19,6 +19,8 @@ const createPost = async ({
   createNode,
   createParentChildLink,
   getNode,
+  githubOwner,
+  githubRepo,
   commentsApiGateway,
 }) => {
   const { frontmatter } = aux;

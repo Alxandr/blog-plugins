@@ -7,7 +7,7 @@ slug.defaults.modes.pretty.lower = true;
 
 exports.onCreateNode = async (
   { node, boundActionCreators, getNode, cache },
-  { commentsApiGateway },
+  { commentsApiGateway, githubOwner, githubRepo },
 ) => {
   const {
     createNode,
@@ -34,13 +34,15 @@ exports.onCreateNode = async (
     case 'post':
       return await Promise.resolve(
         createPost({
-          node,
           aux,
-          createNode,
-          createParentChildLink,
-          createNodeField,
-          getNode,
           commentsApiGateway,
+          createNode,
+          createNodeField,
+          createParentChildLink,
+          getNode,
+          githubOwner,
+          githubRepo,
+          node,
         }),
       );
 
