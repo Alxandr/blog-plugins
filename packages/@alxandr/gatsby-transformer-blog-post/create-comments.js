@@ -7,7 +7,7 @@ const fetchComments = async ({
   commentsApiGateway,
   issue,
   createNode,
-  post,
+  // post,
 }) => {
   const response = await fetch(`${commentsApiGateway}/${issue}`);
   const comments = await response.json();
@@ -16,7 +16,7 @@ const fetchComments = async ({
     const frontmatter = yaml.safeDump(meta);
     const content = `---\n${frontmatter}\n---\n\n${body}`;
     const node = {
-      id: `CommentGateway < ${owner}/${repo}/${comment.id}`,
+      id: `CommentGateway < ${comment.key}`,
       parent: '___SOURCE___',
       children: [],
       internal: {
