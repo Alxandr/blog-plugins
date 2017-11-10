@@ -27,7 +27,7 @@ const createPost = async ({
   const postSlug = frontmatter.slug || slug(frontmatter.title);
   const postDate = DateTime.fromISO(frontmatter.date);
   const postPath =
-    frontmatter.path || `/${postDate.toFormat('YYYY/MM/DD')}/${postSlug}/`;
+    frontmatter.path || `/${postDate.toFormat('yyyy/LL/dd')}/${postSlug}/`;
   const postTitle = frontmatter.title;
   const postTags = toArray(frontmatter.tags || []);
   const postId = `BlogPost < ${postPath}`;
