@@ -38,7 +38,6 @@ const onCreateNode = async (
     unifiedNode.absolutePath = node.absolutePath;
   }
 
-  debugger;
   createNode(unifiedNode);
   createParentChildLink({ parent: node, child: unifiedNode });
 };

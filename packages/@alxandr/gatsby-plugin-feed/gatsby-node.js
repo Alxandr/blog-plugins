@@ -25,14 +25,18 @@ exports.onPostBuild = async ({ graphql }, pluginOptions) => {
       feedOptions.transform(feedData, meta, feedOptions);
     const outputPath = path.join(publicPath, feedOptions.output.substring(1));
 
-    const firstItem = generatorFn()[Symbol.iterator]().next().value;
+    const firstItem = generatorFn()
+      [Symbol.iterator]()
+      .next().value;
     meta.updated = firstItem.updated;
 
-    debugger;
     const writer = createWriter(meta, generatorFn);
     const wstream = fs.createWriteStream(outputPath);
     await new Promise((resolve, reject) => {
-      writer.pipe(wstream).on('finish', resolve).on('error', reject);
+      writer
+        .pipe(wstream)
+        .on('finish', resolve)
+        .on('error', reject);
     });
   }
 };

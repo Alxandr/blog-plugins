@@ -226,6 +226,14 @@ const extendPost = ({ getNode, cache }) => {
       },
     },
 
+    tagIds: {
+      type: new GraphQLNonNull(
+        new GraphQLList(new GraphQLNonNull(GraphQLString)),
+      ),
+
+      resolve: node => node.tags,
+    },
+
     series: {
       type: new GraphQLObjectType({
         name: 'SeriesInfo',
