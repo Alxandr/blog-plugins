@@ -62,6 +62,7 @@ exports.onCreateNode = async (
           createNodeField,
           getNode,
           parent: node.id,
+          createLink: true,
         }),
       );
 

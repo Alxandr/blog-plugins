@@ -45,16 +45,19 @@ const createPost = async ({
 
   const tags = {};
   for (const tag of postTags) {
-    tags[tag] = await Promise.resolve(
+    const tagId = await Promise.resolve(
       createTag(tag, {
         node,
         aux,
         createNode,
         createParentChildLink,
         getNode,
-        parent: postId,
+        parent: postNode,
+        createLink: false,
       }),
     );
+    tags[tag] = tagId;
+    postNode.children.push(tagId);
   }
 
   /* eslint-disable indent */
