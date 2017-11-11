@@ -221,7 +221,7 @@ const extendPost = ({ getNode, cache }) => {
       resolve: node => {
         return node.tags.map(tagId => {
           const tagNode = getNode(tagId);
-          return { name: tagNode.name, path: tagNode.path };
+          return { name: tagNode.name, path: tagNode.path, id: tagId };
         });
       },
     },
