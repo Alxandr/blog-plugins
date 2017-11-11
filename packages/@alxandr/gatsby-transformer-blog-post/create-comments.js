@@ -11,6 +11,7 @@ const fetchComments = async ({
 }) => {
   const response = await fetch(`${commentsApiGateway}/${issue}`);
   const comments = await response.json();
+  const ids = [];
   for (const comment of comments) {
     const { body, ...meta } = comment;
     const frontmatter = yaml.safeDump(
@@ -33,8 +34,10 @@ const fetchComments = async ({
     };
 
     createNode(node);
-    return node.id;
+    ids.push(node.id);
   }
+
+  return ids;
 };
 
 exports.fetchComments = fetchComments;
