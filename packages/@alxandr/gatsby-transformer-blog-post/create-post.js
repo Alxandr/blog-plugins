@@ -67,6 +67,9 @@ const createPost = async ({
       )
     : null;
   /* eslint-enable indent */
+  if (postSeries) {
+    postNode.children.push(postSeries);
+  }
 
   if (!frontmatter.issue) {
     // eslint-disable-next-line no-console

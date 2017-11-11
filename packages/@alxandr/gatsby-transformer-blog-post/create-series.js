@@ -32,7 +32,7 @@ const createSeries = (series, postId, { createNode, getNode }) => {
   seriesNode = {
     id: seriesId,
     children: [],
-    parent: '___SOURCE___',
+    parent: postId,
   };
 
   seriesNode.name = series;
