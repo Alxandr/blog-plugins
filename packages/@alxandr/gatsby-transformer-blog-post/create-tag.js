@@ -1,7 +1,10 @@
 const slug = require('slug');
 const { createInternal } = require('./create-internal');
 
-const createTag = (tag, { aux, createNode, getNode }) => {
+const createTag = (
+  tag,
+  { aux, createNode, getNode, createParentChildLink, parent },
+) => {
   const tagSlug = slug(tag);
   const tagPath = `/tags/${tagSlug}/`;
   const tagId = `Tag < ${tagPath}`;
@@ -17,7 +20,7 @@ const createTag = (tag, { aux, createNode, getNode }) => {
   tagNode = {
     id: tagId,
     children: [],
-    parent: '___SOURCE___',
+    parent: parent.id,
   };
 
   tagNode.name = tag;
@@ -26,6 +29,7 @@ const createTag = (tag, { aux, createNode, getNode }) => {
   tagNode.internal = createInternal('Tag', tagNode);
 
   createNode(tagNode);
+  createParentChildLink({ parent, child: tagNode });
   return tagId;
 };
 exports.createTag = createTag;

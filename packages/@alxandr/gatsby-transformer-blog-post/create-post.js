@@ -52,6 +52,7 @@ const createPost = async ({
         createNode,
         createParentChildLink,
         getNode,
+        parent: postId,
       }),
     );
   }
