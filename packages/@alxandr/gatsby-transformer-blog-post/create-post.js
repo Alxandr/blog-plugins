@@ -75,12 +75,14 @@ const createPost = async ({
     // eslint-disable-next-line no-console
     console.error(`Post ${postTitle} does not have a configured issue.`);
   } else {
-    await fetchComments({
+    const commentId = await fetchComments({
       commentsApiGateway,
       issue: frontmatter.issue,
       createNode,
       post: postId,
     });
+
+    postNode.children.push(commentId);
   }
 
   postNode.slug = postSlug;

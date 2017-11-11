@@ -19,7 +19,7 @@ const fetchComments = async ({
     const content = `---\n${frontmatter}\n---\n\n${body}`;
     const node = {
       id: `CommentGateway < ${comment.key}`,
-      parent: '___SOURCE___',
+      parent: post,
       children: [],
       internal: {
         mediaType: 'text/x-markdown',
@@ -33,6 +33,7 @@ const fetchComments = async ({
     };
 
     createNode(node);
+    return node.id;
   }
 };
 
@@ -64,7 +65,7 @@ const createComment = async ({
   const newCommentsNode = {
     id: commentsNodeId,
     children: [],
-    parent: '___SOURCE___',
+    parent: frontmatter.post,
     comments,
   };
 
@@ -73,6 +74,10 @@ const createComment = async ({
   createNode(commentNode);
   createNode(newCommentsNode);
   createParentChildLink({ parent: node, child: commentNode });
+  createParentChildLink({
+    parent: getNode(frontmatter.post),
+    child: newCommentsNode,
+  });
 };
 
 exports.createComment = createComment;
