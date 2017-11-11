@@ -209,6 +209,7 @@ const extendPost = ({ getNode, cache }) => {
             new GraphQLObjectType({
               name: 'TagInfo',
               fields: {
+                id: { type: new GraphQLNonNull(GraphQLString) },
                 name: { type: new GraphQLNonNull(GraphQLString) },
                 path: { type: new GraphQLNonNull(GraphQLString) },
               },
