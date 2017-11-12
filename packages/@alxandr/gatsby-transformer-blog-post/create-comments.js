@@ -9,7 +9,7 @@ const fetchComments = async ({
   createNode,
   post,
 }) => {
-  const response = await fetch(`${commentsApiGateway}/${issue}`);
+  const response = await fetch(`${commentsApiGateway}/comments/${issue}`);
   const comments = await response.json();
   const ids = [];
   for (const comment of comments) {
